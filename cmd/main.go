@@ -20,8 +20,8 @@ func main() {
 	l.Alignment = fyne.TextAlignCenter
 	d := &calendar.Date{Instruction: i, DateChosen: l}
 	startingDate := time.Now()
-	calendar := calendar.NewTranslatedCalendar(startingDate, d.OnSelected)
-	c := container.NewVBox(i, l, calendar)
+	calendars := calendar.NewTranslatedCalendar(startingDate, d.OnSelected)
+	c := container.NewVBox(i, l, calendars)
 	w.SetContent(c)
 	w.ShowAndRun()
 }
