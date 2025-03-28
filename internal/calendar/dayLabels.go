@@ -1,4 +1,4 @@
-package calender
+package calendar
 
 import (
 	"fyne.io/fyne/v2"
