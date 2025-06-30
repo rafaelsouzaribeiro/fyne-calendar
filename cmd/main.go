@@ -7,7 +7,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
-	"github.com/rafaelsouzaribeiro/internal/calendar"
+	"github.com/rafaelsouzaribeiro/pkg/calendar"
 )
 
 func main() {
