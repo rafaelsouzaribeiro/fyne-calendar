@@ -20,7 +20,12 @@ func main() {
 	l.Alignment = fyne.TextAlignCenter
 	d := &calendar.Date{Instruction: i, DateChosen: l}
 	startingDate := time.Now()
-	calendars := calendar.NewTranslatedCalendar(startingDate, d.OnSelected)
+	specialDays := map[string]bool{
+		"2025-07-10": true,
+		"2025-07-15": true,
+		"2025-07-22": true,
+	}
+	calendars := calendar.NewTranslatedCalendar(startingDate, specialDays, d.OnSelected)
 	c := container.NewVBox(i, l, calendars)
 	w.SetContent(c)
 	w.ShowAndRun()
