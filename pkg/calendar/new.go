@@ -11,14 +11,19 @@ type Date struct {
 	DateChosen   *widget.Label
 	StartingDate time.Time
 	SpecialDays  map[string]bool
+	CurrentDate  chan time.Time
 }
 
 func NewCalendar(date *Date) *Date {
+	ch := make(chan time.Time, 1)
+	ch <- date.StartingDate
+
 	return &Date{
 		Instruction:  date.Instruction,
 		DateChosen:   date.DateChosen,
 		StartingDate: date.StartingDate,
 		SpecialDays:  date.SpecialDays,
+		CurrentDate:  ch,
 	}
 
 }

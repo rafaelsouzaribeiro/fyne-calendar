@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"fyne.io/fyne/v2"
@@ -18,13 +19,20 @@ func main() {
 	i.Alignment = fyne.TextAlignCenter
 	l := widget.NewLabel("")
 	l.Alignment = fyne.TextAlignCenter
-	calenders := calendar.NewCalendar(&calendar.Date{
+	calendars := calendar.NewCalendar(&calendar.Date{
 		Instruction:  i,
 		DateChosen:   l,
 		StartingDate: time.Now(),
 		SpecialDays:  map[string]bool{"2025-07-10": true, "2025-07-15": true, "2025-07-22": true},
 	})
-	calendar := calenders.TranslatedCalendar()
+	calendar := calendars.TranslatedCalendar()
+
+	go func() {
+		for selectedDate := range calendars.CurrentDate {
+			fmt.Printf("Data selecionada: %s\n", selectedDate.Format("02/01/2006"))
+		}
+	}()
+
 	c := container.NewVBox(i, l, calendar)
 	w.SetContent(c)
 	w.ShowAndRun()
