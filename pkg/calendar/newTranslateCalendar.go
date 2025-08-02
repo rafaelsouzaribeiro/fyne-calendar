@@ -9,26 +9,26 @@ import (
 	xwidget "fyne.io/x/fyne/widget"
 )
 
-func NewTranslatedCalendar(startingDate time.Time, specialDays map[string]bool, onSelected func(time.Time)) *fyne.Container {
-	currentDate := startingDate
+func (d *Date) TranslatedCalendar() *fyne.Container {
+	currentDate := d.StartingDate
 	var calendar *xwidget.Calendar
 	monthLabel := widget.NewLabel("")
 
-	UpdateMonthLabel(monthLabel, currentDate)
+	d.UpdateMonthLabel(monthLabel, currentDate)
 	dayLabels := container.NewGridWithColumns(7)
 	daysContainer := container.NewGridWithColumns(7)
-	ChangeDays(dayLabels, daysContainer)
+	d.ChangeDays(dayLabels, daysContainer)
 
 	updateCalendar := func(date time.Time, calendar *xwidget.Calendar) {
 		currentDate = date
-		calendar = xwidget.NewCalendar(currentDate, onSelected)
-		UpdateMonthLabel(monthLabel, currentDate)
+		calendar = xwidget.NewCalendar(currentDate, d.OnSelected)
+		d.UpdateMonthLabel(monthLabel, currentDate)
 		daysContainer.Objects = nil
-		PopulateDays(daysContainer, currentDate, specialDays, onSelected)
+		d.PopulateDays(daysContainer, currentDate)
 		daysContainer.Refresh()
 	}
 
-	PopulateDays(daysContainer, currentDate, specialDays, onSelected)
+	d.PopulateDays(daysContainer, currentDate)
 
 	previousButton := widget.NewButton("Anterior", func() {
 		newDate := currentDate.AddDate(0, -1, 0)

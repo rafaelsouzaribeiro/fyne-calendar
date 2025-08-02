@@ -18,15 +18,14 @@ func main() {
 	i.Alignment = fyne.TextAlignCenter
 	l := widget.NewLabel("")
 	l.Alignment = fyne.TextAlignCenter
-	d := &calendar.Date{Instruction: i, DateChosen: l}
-	startingDate := time.Now()
-	specialDays := map[string]bool{
-		"2025-07-10": true,
-		"2025-07-15": true,
-		"2025-07-22": true,
-	}
-	calendars := calendar.NewTranslatedCalendar(startingDate, specialDays, d.OnSelected)
-	c := container.NewVBox(i, l, calendars)
+	calenders := calendar.NewCalendar(&calendar.Date{
+		Instruction:  i,
+		DateChosen:   l,
+		StartingDate: time.Now(),
+		SpecialDays:  map[string]bool{"2025-07-10": true, "2025-07-15": true, "2025-07-22": true},
+	})
+	calendar := calenders.TranslatedCalendar()
+	c := container.NewVBox(i, l, calendar)
 	w.SetContent(c)
 	w.ShowAndRun()
 }

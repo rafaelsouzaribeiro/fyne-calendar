@@ -5,7 +5,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func ChangeDays(dayLabels *fyne.Container, daysContainer *fyne.Container) {
+func (d *Date) ChangeDays(dayLabels *fyne.Container, daysContainer *fyne.Container) {
 
 	days := []string{"Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"}
 	dayLabels.Objects = nil
