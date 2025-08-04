@@ -16,19 +16,19 @@ func (d *Date) TranslatedCalendar() *fyne.Container {
 
 	d.UpdateMonthLabel(monthLabel, currentDate)
 	dayLabels := container.NewGridWithColumns(7)
-	daysContainer := container.NewGridWithColumns(7)
-	d.ChangeDays(dayLabels, daysContainer)
+	d.DaysContainer = container.NewGridWithColumns(7)
+	d.ChangeDays(dayLabels, d.DaysContainer)
 
 	updateCalendar := func(date time.Time, calendar *xwidget.Calendar) {
 		currentDate = date
 		calendar = xwidget.NewCalendar(currentDate, d.OnSelected)
 		d.UpdateMonthLabel(monthLabel, currentDate)
-		daysContainer.Objects = nil
-		d.PopulateDays(daysContainer, currentDate)
-		daysContainer.Refresh()
+		d.DaysContainer.Objects = nil
+		d.PopulateDays(d.DaysContainer, currentDate)
+		d.DaysContainer.Refresh()
 	}
 
-	d.PopulateDays(daysContainer, currentDate)
+	d.PopulateDays(d.DaysContainer, currentDate)
 
 	previousButton := widget.NewButton("Anterior", func() {
 		newDate := currentDate.AddDate(0, -1, 0)
@@ -45,5 +45,5 @@ func (d *Date) TranslatedCalendar() *fyne.Container {
 		),
 	)
 
-	return container.NewVBox(header, dayLabels, daysContainer)
+	return container.NewVBox(header, dayLabels, d.DaysContainer)
 }
